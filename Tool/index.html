@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Python pip更换国内源python语言是需要我们经常会使用 pip 工具去安装第三方包。如果我们直接使用pip install packageName命令，是从国外的服务器去下载并安装包第三方包，下载速度是非常的慢。为了解决下载速度的问题，我们可以更换为国内的服务器进行下载。 pip国内的一些镜像 阿里云: http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple&#x2F; 中国">
+<meta property="og:type" content="website">
+<meta property="og:title" content="工欲善其事 必先利其器">
+<meta property="og:url" content="http://yoursite.com/Tool/index.html">
+<meta property="og:site_name" content="NoteBook">
+<meta property="og:description" content="Python pip更换国内源python语言是需要我们经常会使用 pip 工具去安装第三方包。如果我们直接使用pip install packageName命令，是从国外的服务器去下载并安装包第三方包，下载速度是非常的慢。为了解决下载速度的问题，我们可以更换为国内的服务器进行下载。 pip国内的一些镜像 阿里云: http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple&#x2F; 中国">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/Tool/1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/Tool/2.jpg">
+<meta property="article:published_time" content="2020-03-15T08:31:21.000Z">
+<meta property="article:modified_time" content="2020-06-13T03:07:33.440Z">
+<meta property="article:author" content="贾汝凌">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/Tool/1.jpg">
+
+<link rel="canonical" href="http://yoursite.com/Tool/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false
+  };
+</script>
+
+  <title>工欲善其事 必先利其器 | NoteBook
+  </title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoteBook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-writeblogs">
+
+    <a href="/WriteBlogs/" rel="section"><i class="fa fa-fw fa-pencil"></i>写博客</a>
+
+  </li>
+        <li class="menu-item menu-item-tool">
+
+    <a href="/Tool/" rel="section"><i class="fa fa-fw fa-cog"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-python">
+
+    <a href="/Python/" rel="section"><i class="fa fa-fw fa-book"></i>Python</a>
+
+  </li>
+        <li class="menu-item menu-item-database">
+
+    <a href="/database/" rel="section"><i class="fa fa-fw fa-database"></i>数据库</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">工欲善其事 必先利其器
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h2 id="Python-pip更换国内源"><a href="#Python-pip更换国内源" class="headerlink" title="Python pip更换国内源"></a>Python pip更换国内源</h2><p>python语言是需要我们经常会使用 <label style="background:#B404AE; color:#fff">pip</label> 工具去安装第三方包。如果我们直接使用<code>pip install packageName</code>命令，是从国外的服务器去下载并安装包第三方包，下载速度是非常的慢。为了解决下载速度的问题，我们可以更换为国内的服务器进行下载。</p>
+<h3 id="pip国内的一些镜像"><a href="#pip国内的一些镜像" class="headerlink" title="pip国内的一些镜像"></a>pip国内的一些镜像</h3><ul>
+<li>阿里云: <a href="http://mirrors.aliyun.com/pypi/simple/" target="_blank" rel="noopener" style="color:#00BFFF;border:0">http://mirrors.aliyun.com/pypi/simple/</a></li>
+<li>中国科技大学: <a href="https://pypi.mirrors.ustc.edu.cn/simple/" target="_blank" rel="noopener" style="color:#00BFFF;border:0">https://pypi.mirrors.ustc.edu.cn/simple/</a></li>
+<li>豆瓣(douban): <a href="http://pypi.douban.com/simple/" target="_blank" rel="noopener" style="color:#00BFFF;border:0">http://pypi.douban.com/simple/</a></li>
+<li>清华大学 <a href="https://pypi.tuna.tsinghua.edu.cn/simple/" target="_blank" rel="noopener" style="color:#00BFFF;border:0">https://pypi.tuna.tsinghua.edu.cn/simple/</a></li>
+</ul>
+<h3 id="修改源方法"><a href="#修改源方法" class="headerlink" title="修改源方法"></a>修改源方法</h3><blockquote>
+<p>可以在使用pip的时候在后面加上-i参数，指定pip源<br>eg: <code>pip install scrapy -i https://pypi.tuna.tsinghua.edu.cn/simple</code></p>
+</blockquote>
+<h2 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>官方网站: <a href="https://www.anaconda.com" target="_blank" rel="noopener" style="color:#00BFFF;border:0">https://www.anaconda.com</a></p>
+<blockquote>
+<p>Anaconda是什么？</p>
+</blockquote>
+<ul>
+<li>Anaconda是一个数据科学开发平台, 支持 Linux, Mac, Windows系统</li>
+<li>为Python提供了<label style="background:#B404AE; color:#fff">包管理</label>与<label style="background:#B404AE; color:#fff">环境管理</label>的功能，可以很方便地解决多版本python并存、切换以及各种第三方包安装问题<ul>
+<li><strong>包管理</strong>与pip的使用类似</li>
+<li><strong>环境管理</strong>则允许用户方便地安装不同版本的python并可以快速切换</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Anaconda的优势是什么？</p>
+</blockquote>
+<ul>
+<li>预装了<label style="background:#B404AE; color:#fff">conda</label>命令来进行package和environment的管理<ul>
+<li>conda的设计理念——<strong>conda将几乎所有的工具、第三方包都当做package对待，甚至包括python和conda自身</strong>！因此，conda打破了包管理与环境管理的约束，能非常方便地安装各种版本python、各种package并方便地切换。</li>
+</ul>
+</li>
+<li>预装了某个版本的python、众多packages</li>
+<li>预装了多个应用程序<ul>
+<li><strong>Anaconda Navigtor</strong> ：用于管理工具包和环境的图形用户界面，在命令行模式下输入的众多管理命令也可以在Navigator中手动实现。</li>
+<li><strong>Jupyter notebook</strong> ：基于web的交互式计算环境，可以编辑易于人们阅读的文档，用于展示数据分析的过程。</li>
+<li><strong>qtconsole</strong> ：一个可执行 IPython 的仿终端图形界面程序，相比 Python Shell 界面，qtconsole 可以直接显示代码生成的图形，实现多行代码输入执行，以及内置许多有用的功能和函数。</li>
+<li><strong>spyder</strong> ：一个使用Python语言、跨平台的、科学运算集成开发环境。</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h3 id="安装和配置环境变量"><a href="#安装和配置环境变量" class="headerlink" title="安装和配置环境变量"></a>安装和配置环境变量</h3><blockquote>
+<p>安装</p>
+</blockquote>
+<ul>
+<li><p>进入官网后你会看到Anaconda有三种产品供我们选择</p>
+<ul>
+<li>individual Edition 【个人版本】</li>
+<li>Team Edition 【团队版本】</li>
+<li>Enterprise Edition 【企业版本】</li>
+</ul>
+<p>通常我们使用individual Edition这个版本就可以了，建议下载python3版本。<a href="https://blog.csdn.net/weixin_43715458/article/details/100096496?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener" style="color:#00BFFF;border:0">安装教程</a></p>
+</li>
+</ul>
+<blockquote>
+<p>配置环境变量</p>
+</blockquote>
+<ul>
+<li><p>如果是windows系统需要去 <label style="background:#B404AE; color:#fff">控制面板&gt;系统和安全&gt;系统&gt;高级系统设置&gt;环境变量&gt;用户变量&gt;PATH</label> 中添加anaconda的安装目录的<label style="background:#B404AE; color:#fff">Scripts</label>文件夹, 比如我的路径是<label style="background:#B404AE; color:#fff">D:\Software\Anaconda\Scripts</label>, 看个人安装路径不同需要自己调整.</p>
+</li>
+<li><p>之后就可以打开命令行(最好用管理员模式打开) 输入<code>conda --version</code></p>
+<blockquote>
+<p>如果输出conda 4.4.11之类的就说明环境变量设置成功了.</p>
+</blockquote>
+</li>
+<li><p>为了避免可能发生的错误, 我们在命令行输入<code>conda upgrade --all</code>先把所有工具包进行升级</p>
+</li>
+</ul>
+<h3 id="Conda的环境管理"><a href="#Conda的环境管理" class="headerlink" title="Conda的环境管理"></a>Conda的环境管理</h3><blockquote>
+<p>在命令行中如何创建自己的虚拟环境？</p>
+</blockquote>
+<ul>
+<li><p>为什么要为每一个独立的项目都创建一个单独的虚拟环境？</p>
+<ul>
+<li>独立——相互隔离，互不影响</li>
+<li>纯净——只有一个项目用的包和依赖，好管理</li>
+<li>方便——摒弃频繁安装/卸载包和依赖</li>
+</ul>
+</li>
+<li><p>创建一个名称为<label style="background:#B404AE; color:#fff">learn</label>的虚拟环境并指定python版本为3.7(这里conda会自动找3.7中最新的版本下载)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n learn python=3.7</span><br></pre></td></tr></table></figure>
+
+<p>自定义的learn环境除了python自带的一些官方包之外是没有其他包的, 是一个比较干净的环境。</p>
+</li>
+</ul>
+<blockquote>
+<p>在命令行中如何<label style="background:#B404AE; color:#fff">进入/退出</label>anaconda设定的虚拟环境？</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Windows</span></span><br><span class="line">conda activate # 进入anaconda自带的base环境</span><br><span class="line">conda activate learn # 进入/切换 到自己创建的虚拟环境learn</span><br><span class="line">conda deactivate  # 退出当前虚拟环境</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Linux &amp; Mac</span></span><br><span class="line">source activate learn # 进入自己创建的虚拟环境</span><br><span class="line">source deactivate learn # 退出虚拟环境</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果忘记了以前创建过的虚拟环境的名字怎么办？</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env list # 查看conda下的所有虚拟环境</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>自定义的虚拟环境不想要了怎么删除？</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove --name learn --all # 删除learn环境及下属所有包</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在虚拟环境中输入<code>python</code>进入python交互式环境，输入<code>exit()</code>退出python解释器</p>
+</blockquote>
+<h3 id="Conda的包管理"><a href="#Conda的包管理" class="headerlink" title="Conda的包管理"></a>Conda的包管理</h3><p>conda的包管理功能和pip的包管理功能类似。以下操作都是在当前活跃虚拟环境中进行。</p>
+<blockquote>
+<p>安装第三方包</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install requests</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install requests</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>卸载第三方包</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove requests</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip uninstall requests</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查看环境包信息</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda list  # 显示所有的包</span><br><span class="line">conda list -n learn  # 查看某个指定环境下已经安装的包</span><br><span class="line">conda search requests # 联网查找package的版本信息</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip list # 显示所有的包</span><br><span class="line">pip freeze  # 仅显示第三方包</span><br><span class="line">pip freeze -all # 显示所有的包</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>更新</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如果不用-n指定环境名称，则被安装在当前活跃环境</span></span><br><span class="line">conda update -n learn requests # 更新package</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update conda # 保持conda最新</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update anaconda # 更新anaconda</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 假设当前环境是python 3.7, conda会将python升级为3.7.x系列的当前最新版本</span></span><br><span class="line">conda update python # 更新python</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>导入导出环境</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将包信息存入yaml文件中</span></span><br><span class="line">conda env export &gt; environment.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> 当需要重新创建一个相同的虚拟环境时可以用</span></span><br><span class="line">conda env create -f environment.yaml</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 仅导出第三方包，存入requirements.txt文件中</span></span><br><span class="line">pip freeze &gt; requirements.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可安装 requirements.txt 中的所有包（指定版本）</span></span><br><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="深入解析"><a href="#深入解析" class="headerlink" title="深入解析"></a>深入解析</h3><blockquote>
+<p>自己创建的虚拟环境都在哪里？</p>
+</blockquote>
+<p>自己创建的虚拟环境都存放在Anaconda安装目录下的 <label style="background:#B404AE; color:#fff">envs</label> 目录下</p>
+<blockquote>
+<p>第三方包都存放在哪里？</p>
+</blockquote>
+<p>自己创建的虚拟环境，安装的第三方包都存放在对应虚拟环境下的 <label style="background:#B404AE; color:#fff">Lib&gt;site-packages</label> 目录下</p>
+<p>Anaconda所谓的创建虚拟环境其实就是安装了一个真实的python环境, 只不过我们可以通过activate,conda等命令去随意的切换我们当前的python环境, 用不同版本的解释器和不同的包环境去运行python脚本.</p>
+<h3 id="与PyCharm结合"><a href="#与PyCharm结合" class="headerlink" title="与PyCharm结合"></a>与PyCharm结合</h3><p>一般情况python编程主要使用的IDE是<a href="https://www.jetbrains.com" target="_blank" rel="noopener" style="color:#00BFFF;border:0">JetBrains</a>公司的PyCharm, PyCharm因为其智能的代码补全功能深得开发者的喜爱,而PyCharm也能很方便的和Anaconda的虚拟环境结合。</p>
+<p>在<label style="background:#B404AE; color:#fff"> Setting &gt; Project &gt; Project Interpreter </label>里面修改<label style="background:#B404AE; color:#fff"> Project Interpreter </label>, 先点击<label style="background:#B404AE; color:#fff"> 齿轮标志 </label>再点击<label style="background:#B404AE; color:#fff"> Add Local </label>选择某个虚拟环境的python.exe解释器就行了。</p>
+<p><img src="/images/Tool/1.jpg" alt=""></p>
+<p>例如要在learn虚拟环境中编写程序, 那么就修改为D:\Software\Anaconda\envs\learn\python.exe, 可以看到这时候下面的依赖包也变成了learn虚拟环境中的包了。接下来我们就可以在pycharm中愉快的编码了。</p>
+<p><img src="/images/Tool/2.jpg" alt=""></p>
+<h3 id="Jupyter-Notebook的使用"><a href="#Jupyter-Notebook的使用" class="headerlink" title="Jupyter Notebook的使用"></a>Jupyter Notebook的使用</h3><h2 id="PyCharm"><a href="#PyCharm" class="headerlink" title="PyCharm"></a>PyCharm</h2><h3 id="PyCharm常用快捷键"><a href="#PyCharm常用快捷键" class="headerlink" title="PyCharm常用快捷键"></a>PyCharm常用快捷键</h3><table>
+<thead>
+<tr>
+<th align="right">序号</th>
+<th align="left">命令</th>
+<th align="left">解释</th>
+<th align="left">类别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td align="left">Ctrl + D</td>
+<td align="left">向下复制选定的区域或行</td>
+<td align="left">编辑</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="left">Ctrl + /</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h2>
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-pip更换国内源"><span class="nav-number">1.</span> <span class="nav-text">Python pip更换国内源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pip国内的一些镜像"><span class="nav-number">1.1.</span> <span class="nav-text">pip国内的一些镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改源方法"><span class="nav-number">1.2.</span> <span class="nav-text">修改源方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anaconda"><span class="nav-number">2.</span> <span class="nav-text">Anaconda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装和配置环境变量"><span class="nav-number">2.2.</span> <span class="nav-text">安装和配置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conda的环境管理"><span class="nav-number">2.3.</span> <span class="nav-text">Conda的环境管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conda的包管理"><span class="nav-number">2.4.</span> <span class="nav-text">Conda的包管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深入解析"><span class="nav-number">2.5.</span> <span class="nav-text">深入解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与PyCharm结合"><span class="nav-number">2.6.</span> <span class="nav-text">与PyCharm结合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jupyter-Notebook的使用"><span class="nav-number">2.7.</span> <span class="nav-text">Jupyter Notebook的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PyCharm"><span class="nav-number">3.</span> <span class="nav-text">PyCharm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PyCharm常用快捷键"><span class="nav-number">3.1.</span> <span class="nav-text">PyCharm常用快捷键</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VS-Code"><span class="nav-number">4.</span> <span class="nav-text">VS Code</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="贾汝凌"
+      src="/images/python.jpg">
+  <p class="site-author-name" itemprop="name">贾汝凌</p>
+  <div class="site-description" itemprop="description">分享知识，让世界更美好</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">贾汝凌</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

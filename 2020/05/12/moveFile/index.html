@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="项目初心平时我们在使用的电脑的时候会接收一些来自 QQ &#x2F; 微信 传输来的文件；有时候我们也会从网上下载一些文件到自己的电脑上，有的文件会下载到 桌面，也有的文件会直接下载到 下载 这个目录里。 上述所说，文件基本都是占用的C盘的空间。C盘是系统盘，我们要尽可能的保证C盘不要放置那些无关紧要的东西，给C盘腾出足够的空间。所以就写了一个python脚本，将无关紧要的文件搬运到其他盘中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件统一管理">
+<meta property="og:url" content="http://yoursite.com/2020/05/12/moveFile/index.html">
+<meta property="og:site_name" content="NoteBook">
+<meta property="og:description" content="项目初心平时我们在使用的电脑的时候会接收一些来自 QQ &#x2F; 微信 传输来的文件；有时候我们也会从网上下载一些文件到自己的电脑上，有的文件会下载到 桌面，也有的文件会直接下载到 下载 这个目录里。 上述所说，文件基本都是占用的C盘的空间。C盘是系统盘，我们要尽可能的保证C盘不要放置那些无关紧要的东西，给C盘腾出足够的空间。所以就写了一个python脚本，将无关紧要的文件搬运到其他盘中。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-12T10:18:16.000Z">
+<meta property="article:modified_time" content="2020-05-12T10:18:16.000Z">
+<meta property="article:author" content="贾汝凌">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="windows批处理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/12/moveFile/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>文件统一管理 | NoteBook</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoteBook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-writeblogs">
+
+    <a href="/WriteBlogs/" rel="section"><i class="fa fa-fw fa-pencil"></i>写博客</a>
+
+  </li>
+        <li class="menu-item menu-item-tool">
+
+    <a href="/Tool/" rel="section"><i class="fa fa-fw fa-cog"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-python">
+
+    <a href="/Python/" rel="section"><i class="fa fa-fw fa-book"></i>Python</a>
+
+  </li>
+        <li class="menu-item menu-item-database">
+
+    <a href="/database/" rel="section"><i class="fa fa-fw fa-database"></i>数据库</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/12/moveFile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/python.jpg">
+      <meta itemprop="name" content="贾汝凌">
+      <meta itemprop="description" content="分享知识，让世界更美好">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoteBook">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          文件统一管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-12 18:18:16" itemprop="dateCreated datePublished" datetime="2020-05-12T18:18:16+08:00">2020-05-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%AB%98%E6%95%88%E5%8A%9E%E5%85%AC/" itemprop="url" rel="index"><span itemprop="name">高效办公</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="项目初心"><a href="#项目初心" class="headerlink" title="项目初心"></a>项目初心</h2><p>平时我们在使用的电脑的时候会接收一些来自 <label style="background:#B404AE; color:#fff">QQ / 微信</label> 传输来的文件；有时候我们也会从网上下载一些文件到自己的电脑上，有的文件会下载到 <label style="background:#B404AE; color:#fff">桌面</label>，也有的文件会直接下载到 <label style="background:#B404AE; color:#fff">下载</label> 这个目录里。</p>
+<p>上述所说，文件基本都是占用的C盘的空间。C盘是系统盘，我们要尽可能的保证C盘不要放置那些无关紧要的东西，给C盘腾出足够的空间。所以就写了一个python脚本，将无关紧要的文件搬运到其他盘中。</p>
+<a id="more"></a>
+<h2 id="项目说明"><a href="#项目说明" class="headerlink" title="项目说明"></a>项目说明</h2><ul>
+<li>python3.7</li>
+<li>都是python内置的模块</li>
+<li>windows 批处理</li>
+<li>需要搬运的文件路径<ul>
+<li>桌面</li>
+<li>下载</li>
+<li>微信默认下载路径</li>
+<li>QQ默认下载路径</li>
+<li>QQ移动端传输文件下载路径</li>
+</ul>
+</li>
+<li>文件存放的路径<ul>
+<li><code>E:\CollectFile\desktop</code></li>
+<li><code>E:\CollectFile\download</code></li>
+<li><code>E:\CollectFile\wechat</code></li>
+<li><code>E:\CollectFile\QQ</code></li>
+</ul>
+</li>
+<li>meta.txt 文件记录程序运行日志</li>
+</ul>
+<h2 id="python项目源码"><a href="#python项目源码" class="headerlink" title="python项目源码"></a>python项目源码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">    将微信 / qq / 桌面 / 浏览器下载的文件资料。</span></span><br><span class="line"><span class="string">    统一搬运到数据盘E盘目录下，避免C盘的东西越堆越多，且路径不好找。</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入模块</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_name</span><span class="params">(filename, path)</span>:</span></span><br><span class="line">    <span class="string">""" 检查需要转移的文件和目录是否和已有的文件和目录重名 """</span></span><br><span class="line">    <span class="comment"># 获取目标目录下的所有文件和目录</span></span><br><span class="line">    goal_list = os.listdir(path)</span><br><span class="line">    <span class="comment"># 出现重名时</span></span><br><span class="line">    <span class="keyword">if</span> filename <span class="keyword">in</span> goal_list:</span><br><span class="line">        <span class="comment"># 存在重名时</span></span><br><span class="line">        <span class="comment"># 获取当前时间戳</span></span><br><span class="line">        ticks = time.time()</span><br><span class="line">        <span class="comment"># 将时间戳转化为时间元组</span></span><br><span class="line">        tm_struct = time.localtime(ticks)</span><br><span class="line">        <span class="comment"># 获取格式化时间字符串</span></span><br><span class="line">        time_str = time.strftime(<span class="string">"%Y%m%d%H%M%S"</span>, tm_struct)</span><br><span class="line">        <span class="comment"># 获取文件名和后缀</span></span><br><span class="line">        name = os.path.splitext(filename)[<span class="number">0</span>]  <span class="comment"># 获取文件名</span></span><br><span class="line">        suffix = os.path.splitext(filename)[<span class="number">1</span>]  <span class="comment"># 获取后缀名</span></span><br><span class="line">        <span class="comment"># 给文件名加上时间</span></span><br><span class="line">        filename = <span class="string">"&#123;&#125;&#123;&#125;&#123;&#125;"</span>.format(name, time_str, suffix)</span><br><span class="line">    <span class="keyword">return</span> filename</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_log</span><span class="params">(filename, new_filename, path, new_path)</span>:</span></span><br><span class="line">    <span class="string">""" 写日志操作 """</span></span><br><span class="line">    <span class="keyword">with</span> open(file=<span class="string">"E:\\CollectFile\\meta.txt"</span>, mode=<span class="string">"a+"</span>) <span class="keyword">as</span> file_write_content:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">        <span class="comment"># 原始文件名 --&gt; 目标文件名 | 原始目录 --&gt; 目标目录</span></span><br><span class="line">        file_write_content.write(<span class="string">"\n&#123;&#125; --&gt; &#123;&#125; | &#123;&#125; --&gt; &#123;&#125;\n"</span>.format(filename, new_filename, path, new_path))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">""" 主程序 """</span></span><br><span class="line">    <span class="comment"># 需要进行文件搬运的目录</span></span><br><span class="line">    file_path = (<span class="string">"C:\\Users\\JRL\\Desktop"</span>,     <span class="comment"># 桌面</span></span><br><span class="line">                 <span class="string">"C:\\Users\\JRL\\Downloads"</span>,   <span class="comment"># 下载</span></span><br><span class="line">                 <span class="string">"C:\\Users\\JRL\\Documents\\WeChat Files\\HELLO_-_Friends\\FileStorage\\File"</span>,  <span class="comment"># 微信好友发来的文件</span></span><br><span class="line">                 <span class="string">"C:\\Users\\JRL\\Documents\\Tencent Files\\389276494\\FileRecv\\MobileFile"</span>,  <span class="comment"># 移动端QQ发来的文件</span></span><br><span class="line">                 <span class="string">"C:\\Users\\JRL\\Documents\\Tencent Files\\389276494\\FileRecv"</span>,  <span class="comment"># QQ好友发来的文件</span></span><br><span class="line">                 )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 存放转移文件的目录</span></span><br><span class="line">    goal_path = (<span class="string">"E:\\CollectFile\\desktop"</span>,    <span class="comment"># 桌面</span></span><br><span class="line">                 <span class="string">"E:\\CollectFile\\download"</span>,   <span class="comment"># 下载</span></span><br><span class="line">                 <span class="string">"E:\\CollectFile\\wechat"</span>,     <span class="comment"># 微信</span></span><br><span class="line">                 <span class="string">"E:\\CollectFile\\QQ"</span>,         <span class="comment"># QQ</span></span><br><span class="line">                 )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 不需要转移的文件后缀名和目录名</span></span><br><span class="line">    suffix_tuple = (<span class="string">".ini"</span>, <span class="string">".lnk"</span>, <span class="string">".bat"</span>, <span class="string">"Image"</span>, <span class="string">"mpFile"</span>, <span class="string">"thumb"</span>, <span class="string">"MobileFile"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 检查所有目标目录</span></span><br><span class="line">    <span class="keyword">for</span> i, path <span class="keyword">in</span> enumerate(file_path):</span><br><span class="line">        <span class="comment"># 获取目录下的文件和文件夹</span></span><br><span class="line">        file_list = os.listdir(path)</span><br><span class="line">        <span class="comment"># print(file_list)</span></span><br><span class="line">        <span class="comment"># 判断目录下是否有文件或文件夹</span></span><br><span class="line">        <span class="keyword">if</span> len(file_list) &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">for</span> item <span class="keyword">in</span> file_list:</span><br><span class="line">                <span class="comment"># 判断是否为文件夹</span></span><br><span class="line">                <span class="keyword">if</span> os.path.isdir(<span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(path, item)):</span><br><span class="line">                    <span class="keyword">if</span> item <span class="keyword">not</span> <span class="keyword">in</span> suffix_tuple:  <span class="comment"># 剔除不需要转移的文件夹</span></span><br><span class="line">                        <span class="comment"># print(item)</span></span><br><span class="line">                        <span class="comment"># 是否是微信的文件目录</span></span><br><span class="line">                        <span class="keyword">if</span> i == <span class="number">2</span>:</span><br><span class="line">                            <span class="comment"># 进入次级目录</span></span><br><span class="line">                            sub_path = <span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(path, item)</span><br><span class="line">                            <span class="comment"># 获取次级目录下的所有文件和文件夹</span></span><br><span class="line">                            sub_file_list = os.listdir(sub_path)</span><br><span class="line">                            <span class="comment"># 直接将文件及文件夹移至数据盘E盘对应目录</span></span><br><span class="line">                            <span class="keyword">for</span> sub_item <span class="keyword">in</span> sub_file_list:</span><br><span class="line">                                new_sub_item = check_name(sub_item, goal_path[i])</span><br><span class="line">                                shutil.move(<span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(sub_path, sub_item),</span><br><span class="line">                                            <span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(goal_path[i], new_sub_item))</span><br><span class="line">                                write_log(sub_item, new_sub_item, sub_path, goal_path[i])</span><br><span class="line">                                print(<span class="string">"&#123;&#125; --&gt; &#123;&#125; | &#123;&#125; --&gt; &#123;&#125;"</span>.format(sub_item, new_sub_item, sub_path, goal_path[i]))</span><br><span class="line">                            <span class="comment"># 删除次级目录及下面的所有文件和文件夹</span></span><br><span class="line">                            shutil.rmtree(sub_path)</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            <span class="comment"># 直接将文件夹移动至数据盘E盘对应目录</span></span><br><span class="line">                            <span class="keyword">if</span> i &lt; <span class="number">2</span>:  <span class="comment"># 将文件移至数据盘E盘对应目录</span></span><br><span class="line">                                new_item = check_name(item, goal_path[i])</span><br><span class="line">                                shutil.move(<span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(path, item), <span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(goal_path[i], new_item))</span><br><span class="line">                                write_log(item, new_item, path, goal_path[i])</span><br><span class="line">                                print(<span class="string">"&#123;&#125; --&gt; &#123;&#125; | &#123;&#125; --&gt; &#123;&#125;"</span>.format(item, new_item, path, goal_path[i]))</span><br><span class="line">                            <span class="keyword">elif</span> <span class="number">2</span> &lt; i &lt; <span class="number">5</span>:  <span class="comment"># 将文件移动数据盘E盘的QQ目录</span></span><br><span class="line">                                new_item = check_name(item, goal_path[<span class="number">3</span>])</span><br><span class="line">                                shutil.move(<span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(path, item), <span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(goal_path[<span class="number">3</span>], new_item))</span><br><span class="line">                                write_log(item, new_item, path, goal_path[<span class="number">3</span>])</span><br><span class="line">                                print(<span class="string">"&#123;&#125; --&gt; &#123;&#125; | &#123;&#125; --&gt; &#123;&#125;"</span>.format(item, new_item, path, goal_path[<span class="number">3</span>]))</span><br><span class="line">                <span class="comment"># 判断是否为文件</span></span><br><span class="line">                <span class="keyword">if</span> os.path.isfile(<span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(path, item)):</span><br><span class="line">                    suffix = os.path.splitext(item)[<span class="number">1</span>]  <span class="comment"># 获取文件后缀名</span></span><br><span class="line">                    <span class="keyword">if</span> suffix <span class="keyword">not</span> <span class="keyword">in</span> suffix_tuple:  <span class="comment"># 剔除不需要转移的文件</span></span><br><span class="line">                        <span class="comment"># print(item)</span></span><br><span class="line">                        <span class="keyword">if</span> i &lt; <span class="number">3</span>:  <span class="comment"># 将文件移至数据盘E盘对应目录</span></span><br><span class="line">                            new_item = check_name(item, goal_path[i])</span><br><span class="line">                            shutil.move(<span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(path, item), <span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(goal_path[i], new_item))</span><br><span class="line">                            write_log(item, new_item, path, goal_path[i])</span><br><span class="line">                            print(<span class="string">"&#123;&#125; --&gt; &#123;&#125; | &#123;&#125; --&gt; &#123;&#125;"</span>.format(item, new_item, path, goal_path[i]))</span><br><span class="line">                        <span class="keyword">elif</span> <span class="number">2</span> &lt; i &lt; <span class="number">5</span>:  <span class="comment"># 将文件移动数据盘E盘的QQ目录</span></span><br><span class="line">                            new_item = check_name(item, goal_path[<span class="number">3</span>])</span><br><span class="line">                            shutil.move(<span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(path, item), <span class="string">"&#123;&#125;\\&#123;&#125;"</span>.format(goal_path[<span class="number">3</span>], new_item))</span><br><span class="line">                            write_log(item, new_item, path, goal_path[<span class="number">3</span>])</span><br><span class="line">                            print(<span class="string">"&#123;&#125; --&gt; &#123;&#125; | &#123;&#125; --&gt; &#123;&#125;"</span>.format(item, new_item, path, goal_path[<span class="number">3</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 写入操作时间</span></span><br><span class="line">    <span class="keyword">with</span> open(file=<span class="string">"E:\\CollectFile\\meta.txt"</span>, mode=<span class="string">"a+"</span>) <span class="keyword">as</span> file_write_time:</span><br><span class="line">        <span class="comment"># 获取当前时间戳</span></span><br><span class="line">        ticks_write = time.time()</span><br><span class="line">        <span class="comment"># 将时间戳转化为时间元组</span></span><br><span class="line">        tm_struct_write = time.localtime(ticks_write)</span><br><span class="line">        <span class="comment"># 获取格式化时间字符串</span></span><br><span class="line">        time_str_write = time.strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>, tm_struct_write)</span><br><span class="line">        file_write_time.write(time_str_write + <span class="string">"\n"</span>)</span><br><span class="line">    <span class="comment"># 调用主函数</span></span><br><span class="line">    main()</span><br><span class="line">    <span class="comment"># 写入分割线</span></span><br><span class="line">    <span class="keyword">with</span> open(file=<span class="string">"E:\\CollectFile\\meta.txt"</span>, mode=<span class="string">"a+"</span>) <span class="keyword">as</span> file_write_line:</span><br><span class="line">        file_write_line.write(<span class="string">"\n"</span> + <span class="string">"-"</span> * <span class="number">150</span> + <span class="string">"\n"</span>)</span><br><span class="line">    print(<span class="string">"success!"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="windows批处理"><a href="#windows批处理" class="headerlink" title="windows批处理"></a>windows批处理</h2><p>每次运行程序都要打开windows的命令行窗口，然后输入<br><code>python E:\\PythonProject\\BatchProgram\\move_file\\moveFile.py</code> (注：<label style="background:#B404AE; color:#fff">我写的python脚本是在E:\PythonProject\BatchProgram\move_file\moveFile.py这个路径下，读者需要根据自己的python脚本所在位置去修改路径</label>) 去执行python脚本。</p>
+<p>但是我们每次需要执行python脚本的时候都要先找到python文件的路径，这样子就很麻烦。所以我们可以在桌面上创建一个文本文件，在文本文件内书写以下代码。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">rem 显示每一行命令</span><br><span class="line">@echo on</span><br><span class="line"></span><br><span class="line">rem 清空dns缓存的windows批处理脚本</span><br><span class="line">ipconfig/flushdns</span><br><span class="line"></span><br><span class="line">rem 切换到Anconda的BatchProgram虚拟环境中</span><br><span class="line">call D:\anconda3\Scripts\activate.bat BatchProgram</span><br><span class="line">rem 在BatchProgram虚拟环境中执行python脚本</span><br><span class="line">python E:\PythonProject\BatchProgram\move_file\moveFile.py</span><br><span class="line"></span><br><span class="line">rem 暂停</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+
+<p>代码写好之后保存文件，然后将文件的后缀名修改为<code>.bat</code>(windows批处理文件)。每次需要对下载的文件进行统一管理时，直接点击该批处理文件直接运行就可以了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>最开始本来想用 <label style="background:#B404AE; color:#fff">任务计划程序</label> 实现每一次开机就运行一次 <label style="background:#B404AE; color:#fff">文件统一管理</label> 程序，但不是每一次使用电脑都会有需要管理的文件，而且电脑开机就运行该任务，电脑容易发热，不利于电脑的长期使用。所以后面改用 <label style="background:#B404AE; color:#fff">windows的批处理</label> 来实现。在自己觉得需要进行一次 <label style="background:#B404AE; color:#fff">文件统一管理</label> 时点击批处理文件即可。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/windows%E6%89%B9%E5%A4%84%E7%90%86/" rel="tag"># windows批处理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/29/VSCodeWritePython/" rel="next" title="用 VSCode 写 Python 代码">
+      用 VSCode 写 Python 代码 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目初心"><span class="nav-number">1.</span> <span class="nav-text">项目初心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目说明"><span class="nav-number">2.</span> <span class="nav-text">项目说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python项目源码"><span class="nav-number">3.</span> <span class="nav-text">python项目源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#windows批处理"><span class="nav-number">4.</span> <span class="nav-text">windows批处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="贾汝凌"
+      src="/images/python.jpg">
+  <p class="site-author-name" itemprop="name">贾汝凌</p>
+  <div class="site-description" itemprop="description">分享知识，让世界更美好</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">贾汝凌</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

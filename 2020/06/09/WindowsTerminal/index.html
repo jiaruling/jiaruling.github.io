@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Windows Terminal 简介及安装Windows Terminal 是微软为 win10 操作系统打造的全新的 超级命令行终端 工具。功能强大而且 开源 免费，支持多标签页、富文本、多语言、窗口分割、可配置主题和样式，支持 emoji 和基于 GPU 显卡加速的文本渲染等等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WindowsTerminal">
+<meta property="og:url" content="http://yoursite.com/2020/06/09/WindowsTerminal/index.html">
+<meta property="og:site_name" content="NoteBook">
+<meta property="og:description" content="Windows Terminal 简介及安装Windows Terminal 是微软为 win10 操作系统打造的全新的 超级命令行终端 工具。功能强大而且 开源 免费，支持多标签页、富文本、多语言、窗口分割、可配置主题和样式，支持 emoji 和基于 GPU 显卡加速的文本渲染等等。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/06/09/WindowsTerminal/1.bmp">
+<meta property="og:image" content="http://yoursite.com/2020/06/09/WindowsTerminal/2.bmp">
+<meta property="og:image" content="http://yoursite.com/2020/06/09/WindowsTerminal/3.png">
+<meta property="article:published_time" content="2020-06-09T12:06:43.000Z">
+<meta property="article:modified_time" content="2020-06-09T12:06:43.000Z">
+<meta property="article:author" content="贾汝凌">
+<meta property="article:tag" content="Terminal">
+<meta property="article:tag" content="Windows">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/09/WindowsTerminal/1.bmp">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/09/WindowsTerminal/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>WindowsTerminal | NoteBook</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoteBook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-writeblogs">
+
+    <a href="/WriteBlogs/" rel="section"><i class="fa fa-fw fa-pencil"></i>写博客</a>
+
+  </li>
+        <li class="menu-item menu-item-tool">
+
+    <a href="/Tool/" rel="section"><i class="fa fa-fw fa-cog"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-python">
+
+    <a href="/Python/" rel="section"><i class="fa fa-fw fa-book"></i>Python</a>
+
+  </li>
+        <li class="menu-item menu-item-database">
+
+    <a href="/database/" rel="section"><i class="fa fa-fw fa-database"></i>数据库</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/09/WindowsTerminal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/python.jpg">
+      <meta itemprop="name" content="贾汝凌">
+      <meta itemprop="description" content="分享知识，让世界更美好">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoteBook">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WindowsTerminal
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-09 20:06:43" itemprop="dateCreated datePublished" datetime="2020-06-09T20:06:43+08:00">2020-06-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Windows-Terminal-简介及安装"><a href="#Windows-Terminal-简介及安装" class="headerlink" title="Windows Terminal 简介及安装"></a>Windows Terminal 简介及安装</h2><p style="text-indent:2em;"><label style="background:#B404AE; color:#fff">Windows Terminal</label> 是微软为 <label style="background:#B404AE; color:#fff">win10</label> 操作系统打造的全新的 <label style="background:#B404AE; color:#fff">超级命令行终端</label> 工具。功能强大而且 <label style="background:#B404AE; color:#fff">开源</label> 免费，支持多标签页、富文本、多语言、窗口分割、可配置主题和样式，支持 emoji 和基于 GPU 显卡加速的文本渲染等等。
+<a id="more"></a>
+除了这款全新的命令行工具之外，微软同时还发布了完整内核的 Linux 子系统 <label style="background:#B404AE; color:#fff">WSL2</label> (Windows Subsystem for Linux 2)，可以不需要虚拟机直接在 Win 系统里内置并运行 Linux 系统，让用户能直接使用众多现有的极为成熟和完整的 Linux 应用和工具库。</p>
+
+<h3 id="如何安装-Windows-Terminal"><a href="#如何安装-Windows-Terminal" class="headerlink" title="如何安装 Windows Terminal"></a>如何安装 Windows Terminal</h3><p style="text-indent:2em;">直接在微软自带的 <label style="background:#B404AE; color:#fff">Microsoft Store</label> 搜索框中输入 <label style="background:#B404AE; color:#fff">Terminal</label> 点击搜索按钮即可，进入 <label style="background:#B404AE; color:#fff">Windows Terminal</label> 页面后直接点击安装。</p>
+
+<h3 id="官方关于-Windows-Terminal-的介绍"><a href="#官方关于-Windows-Terminal-的介绍" class="headerlink" title="官方关于 Windows Terminal 的介绍"></a>官方关于 Windows Terminal 的介绍</h3><p><img src="1.bmp" alt=""></p>
+<p>社区访问链接： <a href="https://github.com/microsoft/terminal" target="_blank" rel="noopener" style="color:#00BFFF;border:0">https://github.com/microsoft/terminal</a></p>
+<p>官方文档链接：<a href="https://aka.ms/terminal-documentation
+" style="color:#00BFFF;border:0">https://aka.ms/terminal-documentation</a></p>
+<h3 id="Windows-Terminal-的系统要求"><a href="#Windows-Terminal-的系统要求" class="headerlink" title="Windows Terminal 的系统要求"></a>Windows Terminal 的系统要求</h3><p><img src="2.bmp" alt=""></p>
+<h2 id="终端的拓展"><a href="#终端的拓展" class="headerlink" title="终端的拓展"></a>终端的拓展</h2><p style="text-indent:2em;"><label style="background:#B404AE; color:#fff">Windows Terminal</label> 应用运行，就会出现以下的界面。不但没有官方宣传的那么炫酷的界面，也没有 <label style="background:#B404AE; color:#fff">Linux 操作系统的命令行窗口</label> 选项。只有 Windows 自带的 <label style="background:#B404AE; color:#fff">Windows PowerShell</label>、<label style="background:#B404AE; color:#fff">命令提示符</label>、<label style="background:#B404AE; color:#fff">Azure Cloud Shell</label> 命令行窗口，而且默认打开的是 <label style="background:#B404AE; color:#fff">Windows PowerShell</label> 窗口。</p>
+
+<p><img src="3.png" alt=""></p>
+<p style="text-indent:2em;">首次打开并没有官方宣传片那么炫酷和强大，是因为 Windows Terminal 是开源的，是可以根据用户自身的偏好高度定制的。</p>
+
+
+<h3 id="添加-ubuntu-命令行窗口"><a href="#添加-ubuntu-命令行窗口" class="headerlink" title="添加 ubuntu 命令行窗口"></a>添加 ubuntu 命令行窗口</h3><h2 id="Windows-Terminal-个性化配置"><a href="#Windows-Terminal-个性化配置" class="headerlink" title="Windows Terminal 个性化配置"></a>Windows Terminal 个性化配置</h2><p>颜色主题链接: <a href="https://atomcorp.github.io/themes/
+" style="color:#00BFFF;border:0">https://atomcorp.github.io/themes/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Terminal/" rel="tag"># Terminal</a>
+              <a href="/tags/Windows/" rel="tag"># Windows</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/29/VSCodeWritePython/" rel="prev" title="用 VSCode 写 Python 代码">
+      <i class="fa fa-chevron-left"></i> 用 VSCode 写 Python 代码
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/11/MarkdownDemo/" rel="next" title="Markdown 语法模板">
+      Markdown 语法模板 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-Terminal-简介及安装"><span class="nav-number">1.</span> <span class="nav-text">Windows Terminal 简介及安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何安装-Windows-Terminal"><span class="nav-number">1.1.</span> <span class="nav-text">如何安装 Windows Terminal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官方关于-Windows-Terminal-的介绍"><span class="nav-number">1.2.</span> <span class="nav-text">官方关于 Windows Terminal 的介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Terminal-的系统要求"><span class="nav-number">1.3.</span> <span class="nav-text">Windows Terminal 的系统要求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#终端的拓展"><span class="nav-number">2.</span> <span class="nav-text">终端的拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-ubuntu-命令行窗口"><span class="nav-number">2.1.</span> <span class="nav-text">添加 ubuntu 命令行窗口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-Terminal-个性化配置"><span class="nav-number">3.</span> <span class="nav-text">Windows Terminal 个性化配置</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="贾汝凌"
+      src="/images/python.jpg">
+  <p class="site-author-name" itemprop="name">贾汝凌</p>
+  <div class="site-description" itemprop="description">分享知识，让世界更美好</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">贾汝凌</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
