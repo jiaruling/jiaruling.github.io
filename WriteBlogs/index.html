@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="程序员为什么要写博客? 原因很简单:  计算机的知识体系过于庞大，对于一个普通人来说，太多的知识点我们是根据记不住的。 很多知识点都是以代码的形式展示，我们需要高效的管理我们学习过的代码块。 编程不是一次性就能够学的很完美，编程的学习是需要我们在不断地迭代中去完善我们的知识体系。 分享个人经验，建立 个人品牌，提升自己的影响力。   为什么要管理写过的代码?  整理写过的代码，整理过程中可以巩固自">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="程序员为什么要写博客? 原因很简单:  计算机的知识体系过于庞大，对于一个普通人来说，太多的知识点我们是根据记不住的。 很多知识点都是以代码的形式展示，我们需要高效的管理我们学习过的代码块。 编程不是一次性就能够学的很完美，编程的学习是需要我们在不断地迭代中去完善我们的知识体系。 分享个人经验，建立 个人品牌，提升自己的影响力。   为什么要管理写过的代码?  整理写过的代码，整理过程中可以巩固自">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-15T02:54:32.000Z">
-<meta property="article:modified_time" content="2020-06-11T15:37:36.590Z">
+<meta property="article:modified_time" content="2020-06-16T03:59:24.179Z">
 <meta property="article:author" content="贾汝凌">
 <meta name="twitter:card" content="summary">
 
@@ -233,7 +233,7 @@
 <h3 id="插入图片的配置"><a href="#插入图片的配置" class="headerlink" title="插入图片的配置"></a>插入图片的配置</h3><p>文章当中需要插入图片，在博客根路径下的 <code>_config.yml</code> 配置文件中进行如下设置。</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
-<p>对于在  <label style="background:#B404AE; color:#fff">文章</label> 或  <label style="background:#B404AE; color:#fff">单独页面</label> 中插入图片做以下总结：</p>
+<p>对于在  <label style="background:#B404AE; color:#fff">文章</label> 或  <label style="background:#B404AE; color:#fff">单独页面</label> 中插入图片做以下<strong>总结</strong>：</p>
 <ul>
 <li><p>之前的hexo需要使用其他插件才能够实现图片的插入，但是现在好像不需要了。【我现在没有使用其他的插件就可以在文章或页面中插入图片】</p>
 </li>
@@ -262,7 +262,24 @@
 </ul>
 </li>
 </ul>
-<h3 id="插入数学公式的配置"><a href="#插入数学公式的配置" class="headerlink" title="插入数学公式的配置"></a>插入数学公式的配置</h3><h3 id="hexo代码块添加一键复制功能"><a href="#hexo代码块添加一键复制功能" class="headerlink" title="hexo代码块添加一键复制功能"></a>hexo代码块添加一键复制功能</h3><h2 id="知识拓展"><a href="#知识拓展" class="headerlink" title="知识拓展"></a>知识拓展</h2><h3 id="Markdown支持的语法高亮"><a href="#Markdown支持的语法高亮" class="headerlink" title="Markdown支持的语法高亮"></a>Markdown支持的语法高亮</h3><p>下面只是列出了我自己可能会用到的编程语言。</p>
+<h3 id="插入数学公式的配置"><a href="#插入数学公式的配置" class="headerlink" title="插入数学公式的配置"></a>插入数学公式的配置</h3><ol>
+<li><p>文章当中需要插入数学公式时，在 <label style="background:#B404AE; color:#fff">Next主题</label> 下的 <code>_config.yml</code> 配置文件中进行如下设置。【注：我使用的 <strong>Next主题</strong> 版本是 <strong>v7.7.2</strong>】</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Math Formulas Render Support</span></span><br><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="comment"># Default (true) will load mathjax / katex script on demand.</span></span><br><span class="line">  <span class="comment"># That is it only render those page which has `mathjax: true` in Front-matter.</span></span><br><span class="line">  <span class="comment"># If you set it to false, it will load mathjax / katex srcipt EVERY PAGE.</span></span><br><span class="line">  <span class="attr">per_page:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># hexo-renderer-pandoc (or hexo-renderer-kramed) required for full MathJax support.</span></span><br><span class="line">  <span class="attr">mathjax:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># See: https://mhchem.github.io/MathJax-mhchem/</span></span><br><span class="line">    <span class="attr">mhchem:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在需要添加数学公式的文章或者页面的 <label style="background:#B404AE; color:#fff">文章抬头</label> 中添加 <code>mathjax: true</code>，例如。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 如何写博客</span><br><span class="line">date: 2020-03-15 10:54:32</span><br><span class="line">mathjax: true</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>效果展示：Gamma公式展示 $\Gamma(n) = (n-1)!\quad\forall<br>n\in\mathbb N$ 是通过欧拉积分</p>
+</li>
+<li><p>数学公式支持 $LATEX$ 语法</p>
+</li>
+<li><p><a href="http://www.wiris.com/editor/demo/en/developers" target="_blank" rel="noopener" style="color:#00BFFF;border:0">可视化公式编辑神器</a></p>
+</li>
+</ol>
+<h3 id="hexo代码块添加一键复制功能"><a href="#hexo代码块添加一键复制功能" class="headerlink" title="hexo代码块添加一键复制功能"></a>hexo代码块添加一键复制功能</h3><p>  在 <label style="background:#B404AE; color:#fff">Next主题</label> 下的 <code>_config.yml</code> 配置文件中，进行以下修改便可实现 <strong>一键复制代码块</strong> 的功能。【注：我使用的 <strong>Next主题</strong> 版本是 <strong>v7.7.2</strong>】</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Add copy button on codeblock</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Show text copy result.</span></span><br><span class="line">    <span class="attr">show_result:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: default | flat | mac</span></span><br><span class="line">    <span class="attr">style:</span> <span class="string">default</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="知识拓展"><a href="#知识拓展" class="headerlink" title="知识拓展"></a>知识拓展</h2><h3 id="Markdown支持的语法高亮"><a href="#Markdown支持的语法高亮" class="headerlink" title="Markdown支持的语法高亮"></a>Markdown支持的语法高亮</h3><p>下面只是列出了我自己可能会用到的编程语言。</p>
 <table>
 <thead>
 <tr>
@@ -425,7 +442,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -525,6 +542,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
