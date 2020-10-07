@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="项目初心最近在写python爬虫的项目，抓取完数据后需要发送到指定的邮箱，所以需要发送附件。同时如果在抓取数据的过程中出现了什么报错，导致程序无法正常运行，也要及时发送给开发者报错信息，让开发者能够及时的修改报错信息。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过python发送和接受电子邮件">
+<meta property="og:url" content="http://yoursite.com/2020/08/27/Email/index.html">
+<meta property="og:site_name" content="NoteBook">
+<meta property="og:description" content="项目初心最近在写python爬虫的项目，抓取完数据后需要发送到指定的邮箱，所以需要发送附件。同时如果在抓取数据的过程中出现了什么报错，导致程序无法正常运行，也要及时发送给开发者报错信息，让开发者能够及时的修改报错信息。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-27T14:23:28.000Z">
+<meta property="article:modified_time" content="2020-08-27T14:23:28.000Z">
+<meta property="article:author" content="贾汝凌">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="收发电子邮件">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/27/Email/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>通过python发送和接受电子邮件 | NoteBook</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoteBook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-writeblogs">
+
+    <a href="/WriteBlogs/" rel="section"><i class="fa fa-fw fa-pencil"></i>写博客</a>
+
+  </li>
+        <li class="menu-item menu-item-tool">
+
+    <a href="/Tool/" rel="section"><i class="fa fa-fw fa-cog"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-python">
+
+    <a href="/Python/" rel="section"><i class="fa fa-fw fa-book"></i>Python</a>
+
+  </li>
+        <li class="menu-item menu-item-database">
+
+    <a href="/database/" rel="section"><i class="fa fa-fw fa-database"></i>数据库</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/27/Email/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/python.jpg">
+      <meta itemprop="name" content="贾汝凌">
+      <meta itemprop="description" content="分享知识，让世界更美好">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoteBook">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          通过python发送和接受电子邮件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-27 22:23:28" itemprop="dateCreated datePublished" datetime="2020-08-27T22:23:28+08:00">2020-08-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%AB%98%E6%95%88%E5%8A%9E%E5%85%AC/" itemprop="url" rel="index"><span itemprop="name">高效办公</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="项目初心"><a href="#项目初心" class="headerlink" title="项目初心"></a>项目初心</h2><p>最近在写python爬虫的项目，抓取完数据后需要发送到指定的邮箱，所以需要发送附件。同时如果在抓取数据的过程中出现了什么报错，导致程序无法正常运行，也要及时发送给开发者报错信息，让开发者能够及时的修改报错信息。</p>
+<a id="more"></a>
+
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h2 id="发送邮件"><a href="#发送邮件" class="headerlink" title="发送邮件"></a>发送邮件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">    将已经打压缩的文件发送给指定邮箱账户</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    发送邮件</span></span><br><span class="line"><span class="string">        参考：https://www.liaoxuefeng.com/wiki/1016959663602400/1017790702398272</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email <span class="keyword">import</span> encoders</span><br><span class="line"><span class="keyword">from</span> email.header <span class="keyword">import</span> Header</span><br><span class="line"><span class="keyword">from</span> email.mime.multipart <span class="keyword">import</span> MIMEMultipart</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"><span class="keyword">from</span> email.mime.base <span class="keyword">import</span> MIMEBase</span><br><span class="line"><span class="keyword">from</span> email.utils <span class="keyword">import</span> parseaddr, formataddr</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> version1.send_email.login_info <span class="keyword">import</span> username, password</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmailSend</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, to_user, to_addr, subject, constant, file_path)</span>:</span></span><br><span class="line">        <span class="comment"># 初始化参数</span></span><br><span class="line">        self.to_user = to_user</span><br><span class="line">        self.to_addr = to_addr</span><br><span class="line">        self.subject = subject</span><br><span class="line">        self.constant = constant</span><br><span class="line">        self.file_path = file_path</span><br><span class="line">        <span class="comment"># 连接服务器</span></span><br><span class="line">        self.client = smtplib.SMTP(<span class="string">"smtp.163.com"</span>)</span><br><span class="line">        <span class="comment"># 开启SSL,保证邮件安全发送</span></span><br><span class="line">        self.client.starttls()</span><br><span class="line">        <span class="comment"># 邮箱登陆</span></span><br><span class="line">        self.client.login(user=username, password=password)</span><br><span class="line">        <span class="comment"># 创建邮件对象</span></span><br><span class="line">        self.msg = MIMEMultipart()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 格式化邮件地址</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_format_addr</span><span class="params">(self, string)</span>:</span></span><br><span class="line">        name, addr = parseaddr(string)</span><br><span class="line">        <span class="keyword">return</span> formataddr((Header(name, <span class="string">'utf-8'</span>).encode(), addr))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 编写邮件</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">write_email</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 邮件主题</span></span><br><span class="line">        self.msg[<span class="string">"Subject"</span>] = Header(self.subject, <span class="string">"utf-8"</span>).encode()</span><br><span class="line">        <span class="comment"># 邮件发送者</span></span><br><span class="line">        self.msg[<span class="string">"From"</span>] = self._format_addr(<span class="string">"贾汝凌&lt;&#123;0&#125;&gt;"</span>.format(username))</span><br><span class="line">        <span class="comment"># 邮件接收者</span></span><br><span class="line">        self.msg[<span class="string">"To"</span>] = self._format_addr(<span class="string">"&#123;0&#125;&lt;&#123;1&#125;&gt;"</span>.format(self.to_user, self.to_addr))</span><br><span class="line">        <span class="comment"># 定义邮件的正文内容,普通文本,utf-8编码</span></span><br><span class="line">        content = MIMEText(_text=self.constant, _subtype=<span class="string">"plain"</span>, _charset=<span class="string">"utf-8"</span>)</span><br><span class="line">        self.msg.attach(content)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 添加附件</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_accessory</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 添加附件就是加上一个MIMEBase，从本地读取一个图片:</span></span><br><span class="line">        print(<span class="string">"添加附件中..."</span>)</span><br><span class="line">        <span class="keyword">with</span> open(self.file_path, <span class="string">"rb"</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="comment"># 设置附件的MIME和文件名，这里是text/plain类型:</span></span><br><span class="line">            mime = MIMEBase(<span class="string">'text'</span>, <span class="string">'plain'</span>, filename=<span class="string">'&#123;&#125;.csv'</span>.format(datetime.now().strftime(<span class="string">"%Y%m%d"</span>)))</span><br><span class="line">            <span class="comment"># 加上必要的头信息:</span></span><br><span class="line">            mime.add_header(<span class="string">'Content-Disposition'</span>, <span class="string">'attachment'</span>,</span><br><span class="line">                            filename=<span class="string">'&#123;&#125;.csv'</span>.format(datetime.now().strftime(<span class="string">"%Y%m%d"</span>)))</span><br><span class="line">            mime.add_header(<span class="string">'Content-ID'</span>, <span class="string">'&lt;0&gt;'</span>)</span><br><span class="line">            mime.add_header(<span class="string">'X-Attachment-Id'</span>, <span class="string">'0'</span>)</span><br><span class="line">            <span class="comment"># 把附件的内容读进来:</span></span><br><span class="line">            mime.set_payload(f.read())</span><br><span class="line">            <span class="comment"># 用Base64编码:</span></span><br><span class="line">            encoders.encode_base64(mime)</span><br><span class="line">            <span class="comment"># 添加到MIMEMultipart:</span></span><br><span class="line">            self.msg.attach(mime)</span><br><span class="line">        print(<span class="string">"附加加载完成..."</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 发送邮件</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_email</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 发送邮件</span></span><br><span class="line">        self.client.sendmail(username, self.to_addr, self.msg.as_string())</span><br><span class="line">        <span class="comment"># 关闭连接</span></span><br><span class="line">        self.client.close()</span><br></pre></td></tr></table></figure>
+
+<h2 id="接受邮件"><a href="#接受邮件" class="headerlink" title="接受邮件"></a>接受邮件</h2><h2 id="【发送邮件附件】文件类型参照表"><a href="#【发送邮件附件】文件类型参照表" class="headerlink" title="【发送邮件附件】文件类型参照表"></a>【发送邮件附件】文件类型参照表</h2><p><a href="https://www.w3school.com.cn/media/media_mimeref.asp" target="_blank" rel="noopener">参考</a></p>
+<p>MIME|(Multipurpose|Internet|Mail|Extensions)|是描述消息内容类型的因特网标准。</p>
+<p>MIME|消息能包含文本、图像、音频、视频以及其他应用程序专用的数据</p>
+<p>按照文件扩展名排列的MIME类型列表【常见】</p>
+<table>
+<thead>
+<tr>
+<th align="left">扩展名</th>
+<th align="left">类型/子类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">css</td>
+<td align="left">text/css</td>
+</tr>
+<tr>
+<td align="left">dir</td>
+<td align="left">application/x-director</td>
+</tr>
+<tr>
+<td align="left">doc</td>
+<td align="left">application/msword</td>
+</tr>
+<tr>
+<td align="left">exe</td>
+<td align="left">application/octet-stream</td>
+</tr>
+<tr>
+<td align="left">gif</td>
+<td align="left">image/gif</td>
+</tr>
+<tr>
+<td align="left">htm</td>
+<td align="left">text/html</td>
+</tr>
+<tr>
+<td align="left">html</td>
+<td align="left">text/html</td>
+</tr>
+<tr>
+<td align="left">jpe</td>
+<td align="left">image/jpeg</td>
+</tr>
+<tr>
+<td align="left">jpeg</td>
+<td align="left">image/jpeg</td>
+</tr>
+<tr>
+<td align="left">jpg</td>
+<td align="left">image/jpeg</td>
+</tr>
+<tr>
+<td align="left">jpz</td>
+<td align="left">image/jpeg</td>
+</tr>
+<tr>
+<td align="left">js</td>
+<td align="left">application/x-javascript</td>
+</tr>
+<tr>
+<td align="left">lml</td>
+<td align="left">x-lml/x-lml</td>
+</tr>
+<tr>
+<td align="left">lsf</td>
+<td align="left">video/x-ms-asf</td>
+</tr>
+<tr>
+<td align="left">lsx</td>
+<td align="left">video/x-ms-asf</td>
+</tr>
+<tr>
+<td align="left">pdf</td>
+<td align="left">application/pdf</td>
+</tr>
+<tr>
+<td align="left">png</td>
+<td align="left">image/png</td>
+</tr>
+<tr>
+<td align="left">ppt</td>
+<td align="left">application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td align="left">ps</td>
+<td align="left">application/postscript</td>
+</tr>
+<tr>
+<td align="left">rar</td>
+<td align="left">application/x-rar-compressed</td>
+</tr>
+<tr>
+<td align="left">txt</td>
+<td align="left">text/plain</td>
+</tr>
+<tr>
+<td align="left">wav</td>
+<td align="left">audio/x-wav</td>
+</tr>
+<tr>
+<td align="left">wax</td>
+<td align="left">audio/x-ms-wax</td>
+</tr>
+<tr>
+<td align="left">xls</td>
+<td align="left">application/vnd.ms-excel</td>
+</tr>
+<tr>
+<td align="left">xml</td>
+<td align="left">text/xml</td>
+</tr>
+<tr>
+<td align="left">zip</td>
+<td align="left">application/zip</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E6%94%B6%E5%8F%91%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6/" rel="tag"># 收发电子邮件</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/11/MarkdownDemo/" rel="prev" title="Markdown 语法模板">
+      <i class="fa fa-chevron-left"></i> Markdown 语法模板
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目初心"><span class="nav-number">1.</span> <span class="nav-text">项目初心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送邮件"><span class="nav-number">3.</span> <span class="nav-text">发送邮件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接受邮件"><span class="nav-number">4.</span> <span class="nav-text">接受邮件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【发送邮件附件】文件类型参照表"><span class="nav-number">5.</span> <span class="nav-text">【发送邮件附件】文件类型参照表</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="贾汝凌"
+      src="/images/python.jpg">
+  <p class="site-author-name" itemprop="name">贾汝凌</p>
+  <div class="site-description" itemprop="description">分享知识，让世界更美好</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">贾汝凌</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
