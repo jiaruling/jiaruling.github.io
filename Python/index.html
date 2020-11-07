@@ -20,17 +20,19 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="分享知识，让世界更美好">
+  <meta name="description" content="混沌encode()和deconde()编码发展史 ASCII编码  众所周知，计算机只能处理0和1，任何符号都转换为0和1的序列才能处理。计算机中8个位（bit）作为一个字节，所以1个字节能产生2的8次方个0和1的不同组合，也就是说1个字节做多能表示256种字符。ASCII编码是用1个字节来存储字符，计算机最初是美国人发明的，他们的符号不多，所以还将8个0和1序列中的第一位固定为0，ASCII只">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Python">
 <meta property="og:url" content="http://yoursite.com/Python/index.html">
 <meta property="og:site_name" content="NoteBook">
-<meta property="og:description" content="分享知识，让世界更美好">
+<meta property="og:description" content="混沌encode()和deconde()编码发展史 ASCII编码  众所周知，计算机只能处理0和1，任何符号都转换为0和1的序列才能处理。计算机中8个位（bit）作为一个字节，所以1个字节能产生2的8次方个0和1的不同组合，也就是说1个字节做多能表示256种字符。ASCII编码是用1个字节来存储字符，计算机最初是美国人发明的，他们的符号不多，所以还将8个0和1序列中的第一位固定为0，ASCII只">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/Python/1.png">
 <meta property="article:published_time" content="2020-03-15T07:52:59.000Z">
-<meta property="article:modified_time" content="2020-06-09T13:13:00.492Z">
+<meta property="article:modified_time" content="2020-11-06T16:06:15.856Z">
 <meta property="article:author" content="贾汝凌">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/Python/1.png">
 
 <link rel="canonical" href="http://yoursite.com/Python/">
 
@@ -202,7 +204,48 @@
       
       
       <div class="post-body">
-          
+          <h2 id="混沌"><a href="#混沌" class="headerlink" title="混沌"></a>混沌</h2><h3 id="encode-和deconde"><a href="#encode-和deconde" class="headerlink" title="encode()和deconde()"></a>encode()和deconde()</h3><h4 id="编码发展史"><a href="#编码发展史" class="headerlink" title="编码发展史"></a>编码发展史</h4><ol>
+<li><strong>ASCII编码</strong></li>
+</ol>
+<p>众所周知，计算机只能处理0和1，任何符号都转换为0和1的序列才能处理。<strong>计算机中8个位（bit）作为一个字节</strong>，所以1个字节能产生2的8次方个0和1的不同组合，也就是说1个字节做多能表示256种字符。<strong>ASCII编码是用1个字节来存储字符</strong>，计算机最初是美国人发明的，他们的符号不多，所以还将8个0和1序列中的第一位固定为0，<strong>ASCII只能表示127个字符</strong>。</p>
+<ol start="2">
+<li><strong>GB2312编码</strong></li>
+</ol>
+<p>美国佬的符号不多，所以ASCII编码够用，但是其他国家就不行了，每个国家符号数量都不一样，就各自指定了自己的编码。例如我们中国就制定了GB2312编码。<strong>GB2312编码用2个字节表示一个字符</strong>。</p>
+<ol start="3">
+<li><strong>Unicode编码</strong></li>
+</ol>
+<p>每个国家都用自己的编码，编码一多就容易乱套，也没法交流，所以需要一种编码把各个国家的编码都囊括进去，这就是Unicode编码的由来。所以，<strong>Unicode也被称为万国码</strong>。<strong>Unicode编码也用2个字节存储一个字符</strong>。</p>
+<ol start="4">
+<li><strong>utf-8编码</strong></li>
+</ol>
+<p>Unicode编码解决了编码不能通用的问题，但是却容易浪费内存，尤其是在存储英文的时候，例如一个字符“A”，ASCII编码只需要1个字节就够，但是<strong>Unicode编码必须要用2个字节</strong>。为了解决这一问题，就有了utf-8编码。<strong>utf-8编码把存储英文依旧用一个字节，汉字就3个字节</strong>。特别是生僻的编程4-6字节，如果传输大量英文，utf-8作用就很明显了。</p>
+<p><strong>utf-8编码进行存储时有极大地优势，但是当读取到计算机内存时却不大合适，因为utf-8编码是变长的，不方便寻址和索引，所以在计算机内存中，还是转化为Unicode编码合适些。这就可以解释为什么每次读取文本时，要将编码转化为Unicode编码，而将内存中的字符写入文件存储时，要将编码转化为utf-8了。</strong></p>
+<h4 id="str与bytes"><a href="#str与bytes" class="headerlink" title="str与bytes"></a>str与bytes</h4><p><strong>在Python3中，文本总是为Unicode编码，在类型上为str类</strong>。也就是说Python编译器只会把Unicode编码下的二进制流显示为我们可识别的符号。二进制流在Python中也有一个专门的类用于表示这种二进制序列，那就是bytes（在Python中这个二进制序列显示为16进制，但本质还是二进制）。<strong>一个str在不同的编码下就可以转化为不同的bytes（二进制流）</strong>，反之，<strong>要将bytes转化为可识别的str就必须用对应的编码，否则就会报错</strong>。</p>
+<h4 id="decode与encode的使用"><a href="#decode与encode的使用" class="headerlink" title="decode与encode的使用"></a>decode与encode的使用</h4><blockquote>
+<p><strong>decode</strong> 英文意思是 <strong>解码</strong>，<strong>encode</strong> 英文原意 <strong>编码</strong></p>
+</blockquote>
+<p><strong>字符串在Python内部的表示是unicode编码</strong>。因此，在做编码转换时，通常需要以unicode作为中间编码， 即先将其他编码的字符串 <strong>解码</strong>（decode）成unicode，再从unicode <strong>编码</strong>（encode）成另一种编码。</p>
+<p><strong>decode的作用是将其他编码的字符串转换成unicode编码</strong>，如str1.decode(‘gb2312’)，表示将gb2312编码的字符串<strong>str1</strong>转换成unicode编码。</p>
+<p><strong>encode的作用是将unicode编码转换成其他编码的字符串</strong>，如str2.encode(‘gb2312’)，表示将unicode编码的字符串<strong>str2</strong>转换成gb2312编码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>u = <span class="string">'中文'</span>                 <span class="comment"># 指定字符串类型对象u </span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str1 = u.encode(<span class="string">'gb2312'</span>)  <span class="comment"># 以gb2312编码对u进行编码，获得bytes类型对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str1)</span><br><span class="line"><span class="string">b'\xd6\xd0\xce\xc4'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str2 = u.encode(<span class="string">'gbk'</span>)     <span class="comment"># 以gbk编码对u进行编码，获得bytes类型对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str2)</span><br><span class="line"><span class="string">b'\xd6\xd0\xce\xc4'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str3 = u.encode(<span class="string">'utf-8'</span>)   <span class="comment"># 以utf-8编码对u进行编码，获得bytes类型对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str3)</span><br><span class="line"><span class="string">b'\xe4\xb8\xad\xe6\x96\x87'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u1 = str1.decode(<span class="string">'gb2312'</span>) <span class="comment"># 以gb2312编码对字符串str进行解码，获得字符串类型对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">'u1'</span>)</span><br><span class="line"><span class="string">'中文'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u2 = str1.decode(<span class="string">'utf-8'</span>)  <span class="comment"># 报错，因为str1是gb2312编码的</span></span><br><span class="line">UnicodeDecodeError: <span class="string">'utf-8'</span> codec can<span class="string">'t decode byte 0xd6 in position 0: invalid continuation byte</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/Python/1.png" alt=""></p>
+<h4 id="文件编码"><a href="#文件编码" class="headerlink" title="文件编码"></a>文件编码</h4><p>在python 3 中字符是以Unicode的形式存储的，当然这里所说的存储是指存储在计算机内存当中，如果是存储在硬盘里，Python 3的字符是以bytes形式存储，也就是说如果要将字符写入硬盘，就必须对字符进行encode。对上面这段话再解释一下，如果要将str写入文件，<strong>如果以‘w’模式写入，则要求写入的内容必须是str类型；如果以‘wb’形式写入，则要求写入的内容必须是bytes类型。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">'你好'</span></span><br><span class="line"><span class="comment">#如果是以‘w’的方式写入，写入前一定要使用encoding指定使用什么类型的编码，否则写入的内容是乱码</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'F:\\1.txt'</span>,<span class="string">'w'</span>, encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f1:</span><br><span class="line">    f1.write(s1)</span><br><span class="line"></span><br><span class="line">s2 = s1.encode(<span class="string">"utf-8"</span>)  <span class="comment">#转换为bytes的形式</span></span><br><span class="line"><span class="comment">#这时候写入方式一定要是‘wb’，且一定不能加encoding参数指定编码，否者会报错</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'F:\\2.txt'</span>,<span class="string">'wb'</span>) <span class="keyword">as</span> f2:</span><br><span class="line">    f2.write(s2)</span><br></pre></td></tr></table></figure>
+
+<h4 id="网页编码"><a href="#网页编码" class="headerlink" title="网页编码"></a>网页编码</h4><p>网页编码和文件编码方法差不多，如下urlopen下载下来的网页read()且用decoding(‘utf-8’)解码，那就必须以‘w’的方式写入文件。如果只是read()而不用encoding(‘utf-8’)进行编码，一定要以‘wb’方式写入：</p>
+<ul>
+<li><p><strong>以‘w’方式写入时：</strong></p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">response= url_open(<span class="string">'http://blog.csdn.net/gs_zhaoyang/article/details/13768925 '</span> ,timeout=<span class="number">5</span> )<span class="comment">#自定义的一个网页下载函数</span></span><br><span class="line"><span class="comment">#此处以UTF-8方式进行解码，解码后的数据以unicode的方式存储在html中</span></span><br><span class="line">html = response.read().decode(<span class="string">'UTF-8'</span>)</span><br><span class="line">print(type(html))<span class="comment">#输出结果：&lt;class 'str'&gt;</span></span><br><span class="line"><span class="comment">#这时写入方式一定要加encoding</span></span><br><span class="line"><span class="comment">#以UTF-8的方式对二进制数据进行编码写入</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'F:\DownloadAppData\html.txt'</span>,<span class="string">"w"</span> , encoding=<span class="string">'UTF-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(html)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>以‘wb’方式写入：</strong></p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">response= url_open(<span class="string">'http://blog.csdn.net/gs_zhaoyang/article/details/13768925 '</span> ,timeout=<span class="number">5</span> )</span><br><span class="line">html = response.read()<span class="comment">#下载下来，此处不需要进行解码</span></span><br><span class="line">print(type(html))<span class="comment">#输出结果：&lt;class 'bytes'&gt;</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'F:\DownloadAppData\html.txt'</span>,<span class="string">"wb"</span> ) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(html)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>如果要在Python3中，对urlopen下载下来的网页进行字符操作（例如正则匹配、lxml提取），就必须decode成Unicode。</p>
+<style>p{text-indent:2em}</style>
       </div>
       
       
@@ -264,6 +307,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#混沌"><span class="nav-number">1.</span> <span class="nav-text">混沌</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#encode-和deconde"><span class="nav-number">1.1.</span> <span class="nav-text">encode()和deconde()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编码发展史"><span class="nav-number">1.1.1.</span> <span class="nav-text">编码发展史</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#str与bytes"><span class="nav-number">1.1.2.</span> <span class="nav-text">str与bytes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#decode与encode的使用"><span class="nav-number">1.1.3.</span> <span class="nav-text">decode与encode的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件编码"><span class="nav-number">1.1.4.</span> <span class="nav-text">文件编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网页编码"><span class="nav-number">1.1.5.</span> <span class="nav-text">网页编码</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -279,7 +323,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -292,7 +336,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

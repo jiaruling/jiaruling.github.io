@@ -233,57 +233,184 @@
 <hr>
 <a id="more"></a>
 
-<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>…</p>
-<blockquote>
-<p>如何查看安装的 <strong>git</strong> 版本信息</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git --version</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="git-配置"><a href="#git-配置" class="headerlink" title="git 配置"></a>git 配置</h2><hr>
+<h2 id="命令汇总"><a href="#命令汇总" class="headerlink" title="命令汇总"></a>命令汇总</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>git --help</code></td>
+<td align="left">查看git的 <strong>所有命令</strong></td>
+</tr>
+<tr>
+<td align="left"><code>git --version</code></td>
+<td align="left">查看git的<strong>版本信息</strong></td>
+</tr>
+<tr>
+<td align="left"><code>git init</code></td>
+<td align="left">创建新的git仓库【初始化git仓库】</td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><code>git branch</code></td>
+<td align="left">查看所有分支</td>
+</tr>
+<tr>
+<td align="left"><code>git branch (branchname)</code></td>
+<td align="left">创建分支</td>
+</tr>
+<tr>
+<td align="left"><code>git checkout (branchname)</code></td>
+<td align="left">切换分支</td>
+</tr>
+<tr>
+<td align="left"><code>git checkout -b (branchname)</code></td>
+<td align="left">创建新分支并立刻切换到该分支下</td>
+</tr>
+<tr>
+<td align="left"><code>git branch -d (branchname)</code></td>
+<td align="left">删除分支</td>
+</tr>
+<tr>
+<td align="left"><code>git merge (branchname)</code></td>
+<td align="left">合并分支 – <strong>将任何分支合并到当前分支中</strong></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><h3 id="git-配置"><a href="#git-配置" class="headerlink" title="git 配置"></a>git 配置</h3><hr>
 <h2 id="git的工作流程"><a href="#git的工作流程" class="headerlink" title="git的工作流程"></a>git的工作流程</h2><hr>
-<h2 id="git的基本操作"><a href="#git的基本操作" class="headerlink" title="git的基本操作"></a>git的基本操作</h2><h3 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h3><blockquote>
-<p>查看git的 <strong>所有命令</strong></p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git --<span class="built_in">help</span></span></span><br></pre></td></tr></table></figure>
-
+<h2 id="git的基本操作"><a href="#git的基本操作" class="headerlink" title="git的基本操作"></a>git的基本操作</h2><h3 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h3><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>git --help</code></td>
+<td align="left">查看git的 <strong>所有命令</strong></td>
+</tr>
+<tr>
+<td align="left"><code>git init</code></td>
+<td align="left">创建新的git仓库【初始化git仓库】</td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">``</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
 <hr>
-<h2 id="git的分支管理"><a href="#git的分支管理" class="headerlink" title="git的分支管理"></a>git的分支管理</h2><h3 id="基础命令-1"><a href="#基础命令-1" class="headerlink" title="基础命令"></a>基础命令</h3><blockquote>
-<p>查看所有分支</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch</span></span><br></pre></td></tr></table></figure>
+<h2 id="git的分支管理"><a href="#git的分支管理" class="headerlink" title="git的分支管理"></a>git的分支管理</h2><h3 id="基础命令-1"><a href="#基础命令-1" class="headerlink" title="基础命令"></a>基础命令</h3><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>git branch</code></td>
+<td align="left">查看所有分支</td>
+</tr>
+<tr>
+<td align="left"><code>git branch (branchname)</code></td>
+<td align="left">创建分支</td>
+</tr>
+<tr>
+<td align="left"><code>git checkout (branchname)</code></td>
+<td align="left">切换分支</td>
+</tr>
+<tr>
+<td align="left"><code>git checkout -b (branchname)</code></td>
+<td align="left">创建新分支并立刻切换到该分支下</td>
+</tr>
+<tr>
+<td align="left"><code>git branch -d (branchname)</code></td>
+<td align="left">删除分支</td>
+</tr>
+<tr>
+<td align="left"><code>git merge (branchname)</code></td>
+<td align="left">合并分支 – <strong>将任何分支合并到当前分支中</strong></td>
+</tr>
+</tbody></table>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><h3 id="合并冲突"><a href="#合并冲突" class="headerlink" title="合并冲突"></a>合并冲突</h3><hr>
+<h2 id="git与github"><a href="#git与github" class="headerlink" title="git与github"></a>git与github</h2><h3 id="git与github建立连接"><a href="#git与github建立连接" class="headerlink" title="git与github建立连接"></a>git与github建立连接</h3><h3 id="git上传文件到github"><a href="#git上传文件到github" class="headerlink" title="git上传文件到github"></a>git上传文件到github</h3><h3 id="git从github中拉取文件"><a href="#git从github中拉取文件" class="headerlink" title="git从github中拉取文件"></a>git从github中拉取文件</h3><h4 id="基础命令-2"><a href="#基础命令-2" class="headerlink" title="基础命令"></a>基础命令</h4><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>git clone ulr</code></td>
+<td align="left">git从github上默认拉取<strong>master分支</strong>上的数据</td>
+</tr>
+<tr>
+<td align="left"><code>git clone -b (branchname) url</code></td>
+<td align="left">git拉取github上<strong>指定分支</strong>的数据</td>
+</tr>
+</tbody></table>
+<h4 id="举例-1"><a href="#举例-1" class="headerlink" title="举例"></a>举例</h4><ol>
+<li><p>拉取 <a href="https://github.com/jiaruling/learning" target="_blank" rel="noopener">https://github.com/jiaruling/learning</a> 仓库下 <strong>master</strong> 分支的数据</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> git@github.com:jiaruling/learning.git  --SSH协议</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拉取 <a href="https://github.com/jiaruling/learning" target="_blank" rel="noopener">https://github.com/jiaruling/learning</a> 仓库下 <strong>branch1</strong> 分支的数据</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> -b branch1 git@github.com:jiaruling/learning.git  --SSH协议</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>创建分支</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch (branchname)</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>切换分支</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout (branchname)</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>创建新分支并立刻切换到该分支下</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout -b (branchname)</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>删除分支</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -d (branchname)</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>合并分支 – <strong>将任何分支合并到当前分支中</strong></p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git merge (branchname)</span></span><br></pre></td></tr></table></figure>
-
-
+</li>
+</ol>
 <hr>
-<h2 id="Git与Github"><a href="#Git与Github" class="headerlink" title="Git与Github"></a>Git与Github</h2><hr>
-<h2 id="Git与Gitee"><a href="#Git与Gitee" class="headerlink" title="Git与Gitee"></a>Git与Gitee</h2><hr>
-<h2 id="搭建私有Git服务器"><a href="#搭建私有Git服务器" class="headerlink" title="搭建私有Git服务器"></a>搭建私有Git服务器</h2>
+<h2 id="git与gitee"><a href="#git与gitee" class="headerlink" title="git与gitee"></a>git与gitee</h2><hr>
+<h2 id="搭建私有git服务器"><a href="#搭建私有git服务器" class="headerlink" title="搭建私有git服务器"></a>搭建私有git服务器</h2><hr>
+<h2 id="在IDE和VSCode中使用git"><a href="#在IDE和VSCode中使用git" class="headerlink" title="在IDE和VSCode中使用git"></a>在IDE和VSCode中使用git</h2>
     </div>
 
     
@@ -301,7 +428,10 @@
     <a href="/2020/10/21/Django%E7%9A%84%E9%83%A8%E7%BD%B2/" rel="prev" title="Django + Nginx + Gunicorn 部署配置">
       <i class="fa fa-chevron-left"></i> Django + Nginx + Gunicorn 部署配置
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/06/Python-Celery/" rel="next" title="Python-Celery">
+      Python-Celery <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -361,7 +491,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习资源汇总"><span class="nav-number">1.</span> <span class="nav-text">学习资源汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载安装"><span class="nav-number">2.</span> <span class="nav-text">下载安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-配置"><span class="nav-number">3.</span> <span class="nav-text">git 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git的工作流程"><span class="nav-number">4.</span> <span class="nav-text">git的工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git的基本操作"><span class="nav-number">5.</span> <span class="nav-text">git的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础命令"><span class="nav-number">5.1.</span> <span class="nav-text">基础命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git的分支管理"><span class="nav-number">6.</span> <span class="nav-text">git的分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础命令-1"><span class="nav-number">6.1.</span> <span class="nav-text">基础命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git与Github"><span class="nav-number">7.</span> <span class="nav-text">Git与Github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git与Gitee"><span class="nav-number">8.</span> <span class="nav-text">Git与Gitee</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建私有Git服务器"><span class="nav-number">9.</span> <span class="nav-text">搭建私有Git服务器</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习资源汇总"><span class="nav-number">1.</span> <span class="nav-text">学习资源汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令汇总"><span class="nav-number">2.</span> <span class="nav-text">命令汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载安装"><span class="nav-number">3.</span> <span class="nav-text">下载安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-配置"><span class="nav-number">3.1.</span> <span class="nav-text">git 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git的工作流程"><span class="nav-number">4.</span> <span class="nav-text">git的工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git的基本操作"><span class="nav-number">5.</span> <span class="nav-text">git的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础命令"><span class="nav-number">5.1.</span> <span class="nav-text">基础命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git的分支管理"><span class="nav-number">6.</span> <span class="nav-text">git的分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础命令-1"><span class="nav-number">6.1.</span> <span class="nav-text">基础命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举例"><span class="nav-number">6.2.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并冲突"><span class="nav-number">6.3.</span> <span class="nav-text">合并冲突</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git与github"><span class="nav-number">7.</span> <span class="nav-text">git与github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git与github建立连接"><span class="nav-number">7.1.</span> <span class="nav-text">git与github建立连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git上传文件到github"><span class="nav-number">7.2.</span> <span class="nav-text">git上传文件到github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git从github中拉取文件"><span class="nav-number">7.3.</span> <span class="nav-text">git从github中拉取文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础命令-2"><span class="nav-number">7.3.1.</span> <span class="nav-text">基础命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举例-1"><span class="nav-number">7.3.2.</span> <span class="nav-text">举例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git与gitee"><span class="nav-number">8.</span> <span class="nav-text">git与gitee</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建私有git服务器"><span class="nav-number">9.</span> <span class="nav-text">搭建私有git服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在IDE和VSCode中使用git"><span class="nav-number">10.</span> <span class="nav-text">在IDE和VSCode中使用git</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -377,7 +507,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -390,7 +520,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
